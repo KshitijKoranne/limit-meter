@@ -28,14 +28,13 @@ describe("AboutDialog", () => {
     expect(screen.getByText("LimitMeter")).toBeInTheDocument()
     expect(screen.getByText("v1.2.3")).toBeInTheDocument()
     expect(screen.getByText("GitHub")).toBeInTheDocument()
-    expect(screen.getByRole("button", { name: "OpenUsage" })).toBeInTheDocument()
   })
 
-  it("opens upstream project on click", async () => {
+  it("opens project repository on click", async () => {
     render(<AboutDialog version="1.2.3" onClose={() => {}} />)
 
-    await userEvent.click(screen.getByRole("button", { name: "OpenUsage" }))
-    expect(openerState.openUrlMock).toHaveBeenCalledWith("https://github.com/Emanuele-web04/openusage")
+    await userEvent.click(screen.getByRole("button", { name: "GitHub" }))
+    expect(openerState.openUrlMock).toHaveBeenCalledWith("https://github.com/KshitijKoranne/limit-meter")
   })
 
   it("closes on Escape", async () => {

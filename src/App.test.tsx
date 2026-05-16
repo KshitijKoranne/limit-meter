@@ -676,12 +676,12 @@ describe("App", () => {
 
     // Open about via version button in footer
     await userEvent.click(await screen.findByRole("button", { name: /LimitMeter/i }))
-    await screen.findByText("Forked from")
+    await screen.findByText("Open source on")
 
     // Close about via ESC key
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }))
     await waitFor(() => {
-      expect(screen.queryByText("Forked from")).not.toBeInTheDocument()
+      expect(screen.queryByText("Open source on")).not.toBeInTheDocument()
     })
   })
 

@@ -114,12 +114,6 @@ export function AboutDialog({ version, onClose }: AboutDialogProps) {
               GitHub
             </ExternalLink>
           </p>
-          <p className="text-xs pt-1">
-            Forked from{" "}
-            <ExternalLink href="https://github.com/Emanuele-web04/openusage">
-              OpenUsage
-            </ExternalLink>
-          </p>
         </div>
       </div>
     </div>

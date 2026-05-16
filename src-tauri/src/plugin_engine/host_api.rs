@@ -2834,7 +2834,7 @@ mod tests {
 
     #[test]
     fn redact_body_redacts_user_id_and_email() {
-        let body = r#"{"user_id": "user-iupzZ7KFykMLrnzpkHSq7wjo", "email": "rob@sunstory.com"}"#;
+        let body = r#"{"user_id": "user-iupzZ7KFykMLrnzpkHSq7wjo", "email": "demo@limit-meter.app"}"#;
         let redacted = redact_body(body);
         assert!(
             !redacted.contains("user-iupzZ7KFykMLrnzpkHSq7wjo"),
@@ -2842,7 +2842,7 @@ mod tests {
             redacted
         );
         assert!(
-            !redacted.contains("rob@sunstory.com"),
+            !redacted.contains("demo@limit-meter.app"),
             "email should be redacted, got: {}",
             redacted
         );
@@ -2853,7 +2853,7 @@ mod tests {
             redacted
         );
         assert!(
-            redacted.contains("rob@....com"),
+            redacted.contains("demo....app"),
             "email should show first4...last4, got: {}",
             redacted
         );
@@ -2980,10 +2980,10 @@ mod tests {
     #[test]
     fn redact_body_redacts_login_and_analytics_tracking_id() {
         let body =
-            r#"{"login":"robinebers","analytics_tracking_id":"c9df3f012bb8c2eb7aae6868ee8da6cf"}"#;
+            r#"{"login":"limitmeter","analytics_tracking_id":"c9df3f012bb8c2eb7aae6868ee8da6cf"}"#;
         let redacted = redact_body(body);
         assert!(
-            !redacted.contains("robinebers"),
+            !redacted.contains("limitmeter"),
             "login should be redacted, got: {}",
             redacted
         );
@@ -3008,19 +3008,19 @@ mod tests {
     #[test]
     fn redact_body_redacts_name_field() {
         let body =
-            r#"{"userStatus":{"name":"Robin Ebers","email":"rob@sunstory.com","planStatus":{}}}"#;
+            r#"{"userStatus":{"name":"Limit Meter","email":"demo@limit-meter.app","planStatus":{}}}"#;
         let redacted = redact_body(body);
         assert!(
-            !redacted.contains("Robin Ebers"),
+            !redacted.contains("Limit Meter"),
             "name should be redacted, got: {}",
             redacted
         );
         assert!(
-            !redacted.contains("rob@sunstory.com"),
+            !redacted.contains("demo@limit-meter.app"),
             "email should be redacted, got: {}",
             redacted
         );
-        // "Robin Ebers" is 11 chars (<=12) so becomes [REDACTED]
+        // "Limit Meter" is 11 chars (<=12) so becomes [REDACTED]
         assert!(
             redacted.contains("\"name\": \"[REDACTED]\""),
             "name should show [REDACTED], got: {}",

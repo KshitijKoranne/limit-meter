@@ -2,7 +2,7 @@
 
 LimitMeter is a macOS menu-bar app for tracking AI coding subscription limits before they surprise you.
 
-It starts as a clean, attributed fork of OpenUsage and is being shaped into a limit-first assistant for Claude, Codex, Cursor, Copilot, Gemini, Windsurf, and other AI coding tools.
+It is being shaped into a limit-first assistant for Claude, Codex, Cursor, Copilot, Gemini, Windsurf, and other AI coding tools.
 
 ![LimitMeter Screenshot](screenshot.png)
 
@@ -62,14 +62,6 @@ Run the Tauri app:
 ```bash
 bun run tauri dev
 ```
-
-## Attribution
-
-LimitMeter is based on [OpenUsage](https://github.com/Emanuele-web04/openusage), which is distributed under the MIT License.
-
-The original MIT copyright notice is preserved in [LICENSE](LICENSE). See [NOTICE](NOTICE) for fork and attribution details.
-
-LimitMeter is not affiliated with, endorsed by, or an official release of OpenUsage or its maintainers.
 
 ## License
 
