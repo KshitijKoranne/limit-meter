@@ -355,7 +355,7 @@ function MetricLineRenderer({
       displayMode === "used"
         ? line.used
         : Math.max(0, line.limit - line.used)
-    const percent = Math.round(clamp01(shownAmount / line.limit) * 10000) / 100
+    const usedPercent = Math.round(clamp01(line.used / line.limit) * 10000) / 100
     const leftSuffix = displayMode === "left" ? " left" : ""
     const limitStatus = getLimitStatus(line.used, line.limit)
 
@@ -396,8 +396,7 @@ function MetricLineRenderer({
       ? (() => {
           const periodStartMs = resetsAtMs - periodDurationMs!
           const elapsedFraction = clamp01((now - periodStartMs) / periodDurationMs!)
-          const elapsedPercent = elapsedFraction * 100
-          return displayMode === "used" ? elapsedPercent : 100 - elapsedPercent
+          return elapsedFraction * 100
         })()
       : undefined
     const isLimitReached = line.used >= line.limit
@@ -451,9 +450,10 @@ function MetricLineRenderer({
           )}
         </div>
         <Progress
-          value={percent}
+          value={usedPercent}
           indicatorColor={line.color}
           markerValue={paceMarkerValue}
+          aria-label={`${line.label} used`}
         />
         <div className="flex justify-between items-center mt-1.5">
           <span className="text-xs text-muted-foreground tabular-nums">

@@ -208,7 +208,7 @@ describe("ProviderCard", () => {
     expect(formatFixedPrecisionNumber(1234567.89)).toBe("1,234,567.89")
   })
 
-  it("supports displayMode=left for percent (number + bar fill)", () => {
+  it("supports displayMode=left while the bar still shows used pressure", () => {
     render(
       <ProviderCard
         name="Left"
@@ -219,7 +219,7 @@ describe("ProviderCard", () => {
       />
     )
     expect(screen.getByText("58% left")).toBeInTheDocument()
-    expect(screen.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "58")
+    expect(screen.getByRole("progressbar", { name: "Session used" })).toHaveAttribute("aria-valuenow", "42")
   })
 
   it("uses elapsed-time marker position in displayMode=left", () => {
@@ -245,7 +245,7 @@ describe("ProviderCard", () => {
     )
     const marker = document.querySelector<HTMLElement>('[data-slot="progress-marker"]')
     expect(marker).toBeTruthy()
-    expect(marker?.style.left).toBe("25%")
+    expect(marker?.style.left).toBe("75%")
     vi.useRealTimers()
   })
 

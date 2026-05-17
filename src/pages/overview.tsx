@@ -36,6 +36,7 @@ export function OverviewPage({
           <span className="text-sm font-semibold">{readiness.answer}</span>
         </div>
         <div className="mt-0.5 text-xs text-current/70">{readiness.detail}</div>
+        <div className="mt-1 text-xs font-medium text-current/85">{readiness.advice}</div>
       </div>
       {plugins.map((plugin, index) => (
         <ProviderCard

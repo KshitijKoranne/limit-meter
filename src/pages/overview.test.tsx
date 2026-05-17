@@ -26,6 +26,7 @@ describe("OverviewPage", () => {
     render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
     expect(screen.getByText("Can I code?")).toBeInTheDocument()
     expect(screen.getByText("Clear")).toBeInTheDocument()
+    expect(screen.getByText("Best headroom: Alpha")).toBeInTheDocument()
     expect(screen.getByText("Alpha")).toBeInTheDocument()
   })
 
@@ -47,6 +48,7 @@ describe("OverviewPage", () => {
     render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
     expect(screen.getByText("Blocked")).toBeInTheDocument()
     expect(screen.getByText("1 limit capped")).toBeInTheDocument()
+    expect(screen.getByText("Avoid Alpha Usage for now")).toBeInTheDocument()
   })
 
   it("only shows overview-scoped lines", () => {
