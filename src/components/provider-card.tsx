@@ -16,6 +16,7 @@ import { clamp01, formatCountNumber, formatFixedPrecisionNumber } from "@/lib/ut
 import { calculateDeficit, calculatePaceStatus, type PaceStatus } from "@/lib/pace-status"
 import { buildPaceDetailText, formatDeficitText, formatRunsOutText, getPaceStatusText } from "@/lib/pace-tooltip"
 import { formatResetAbsoluteLabel, formatResetRelativeLabel, formatResetTooltipText } from "@/lib/reset-tooltip"
+import { getLimitStatus } from "@/lib/limit-status"
 
 interface ProviderCardProps {
   name: string
@@ -356,6 +357,7 @@ function MetricLineRenderer({
         : Math.max(0, line.limit - line.used)
     const percent = Math.round(clamp01(shownAmount / line.limit) * 10000) / 100
     const leftSuffix = displayMode === "left" ? " left" : ""
+    const limitStatus = getLimitStatus(line.used, line.limit)
 
     const primaryText =
       line.format.kind === "percent"
@@ -431,10 +433,21 @@ function MetricLineRenderer({
 
     return (
       <div>
-        <div className="text-sm font-medium mb-1.5 flex items-center gap-1.5">
-          {line.label}
-          {paceStatus && (
-            <PaceIndicator status={paceStatus} detailText={paceDetailText} isLimitReached={isLimitReached} />
+        <div className="mb-1.5 flex items-center justify-between gap-2">
+          <div className="text-sm font-medium flex items-center gap-1.5 min-w-0">
+            <span className="truncate">{line.label}</span>
+            {paceStatus && (
+              <PaceIndicator status={paceStatus} detailText={paceDetailText} isLimitReached={isLimitReached} />
+            )}
+          </div>
+          {limitStatus && (
+            <Badge
+              variant="outline"
+              className={`h-5 px-1.5 text-[10px] shrink-0 ${limitStatus.toneClass}`}
+              title={`${limitStatus.label}: ${Math.round(clamp01(line.used / line.limit) * 100)}% used`}
+            >
+              {limitStatus.label}
+            </Badge>
           )}
         </div>
         <Progress

@@ -110,6 +110,26 @@ describe("ProviderCard", () => {
     expect(screen.getByText("342 credits")).toBeInTheDocument()
   })
 
+  it("shows limit status badges for progress usage", () => {
+    render(
+      <ProviderCard
+        name="Limits"
+        displayMode="used"
+        lines={[
+          { type: "progress", label: "Safe Metric", used: 30, limit: 100, format: { kind: "percent" } },
+          { type: "progress", label: "Watch Metric", used: 70, limit: 100, format: { kind: "percent" } },
+          { type: "progress", label: "Near Metric", used: 90, limit: 100, format: { kind: "percent" } },
+          { type: "progress", label: "Capped Metric", used: 100, limit: 100, format: { kind: "percent" } },
+        ]}
+      />
+    )
+
+    expect(screen.getByText("Safe")).toBeInTheDocument()
+    expect(screen.getByText("Watch")).toBeInTheDocument()
+    expect(screen.getByText("Near Limit")).toBeInTheDocument()
+    expect(screen.getByText("Capped")).toBeInTheDocument()
+  })
+
   it("renders quick links and opens URL", async () => {
     render(
       <ProviderCard
