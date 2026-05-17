@@ -1,6 +1,7 @@
 import { ProviderCard } from "@/components/provider-card"
 import type { PluginDisplayState } from "@/lib/plugin-types"
 import type { DisplayMode, ResetTimerDisplayMode } from "@/lib/settings"
+import { getUsageReadiness } from "@/lib/usage-readiness"
 
 interface OverviewPageProps {
   plugins: PluginDisplayState[]
@@ -25,8 +26,17 @@ export function OverviewPage({
     )
   }
 
+  const readiness = getUsageReadiness(plugins)
+
   return (
     <div>
+      <div className={`mb-2 rounded-lg border px-3 py-2 ${readiness.toneClass}`}>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs font-medium text-current/80">Can I code?</span>
+          <span className="text-sm font-semibold">{readiness.answer}</span>
+        </div>
+        <div className="mt-0.5 text-xs text-current/70">{readiness.detail}</div>
+      </div>
       {plugins.map((plugin, index) => (
         <ProviderCard
           key={plugin.meta.id}

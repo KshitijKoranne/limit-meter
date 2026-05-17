@@ -12,14 +12,41 @@ describe("OverviewPage", () => {
     const plugins = [
       {
         meta: { id: "a", name: "Alpha", iconUrl: "icon", lines: [] },
-        data: { providerId: "a", displayName: "Alpha", lines: [], iconUrl: "icon" },
+        data: {
+          providerId: "a",
+          displayName: "Alpha",
+          lines: [{ type: "progress" as const, label: "Usage", used: 25, limit: 100, format: { kind: "percent" as const } }],
+          iconUrl: "icon",
+        },
         loading: false,
         error: null,
         lastManualRefreshAt: null,
       },
     ]
     render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
+    expect(screen.getByText("Can I code?")).toBeInTheDocument()
+    expect(screen.getByText("Clear")).toBeInTheDocument()
     expect(screen.getByText("Alpha")).toBeInTheDocument()
+  })
+
+  it("shows a blocked readiness summary for capped providers", () => {
+    const plugins = [
+      {
+        meta: { id: "a", name: "Alpha", iconUrl: "icon", lines: [] },
+        data: {
+          providerId: "a",
+          displayName: "Alpha",
+          lines: [{ type: "progress" as const, label: "Usage", used: 100, limit: 100, format: { kind: "percent" as const } }],
+          iconUrl: "icon",
+        },
+        loading: false,
+        error: null,
+        lastManualRefreshAt: null,
+      },
+    ]
+    render(<OverviewPage plugins={plugins} displayMode="used" resetTimerDisplayMode="relative" />)
+    expect(screen.getByText("Blocked")).toBeInTheDocument()
+    expect(screen.getByText("1 limit capped")).toBeInTheDocument()
   })
 
   it("only shows overview-scoped lines", () => {
